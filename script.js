@@ -73,21 +73,21 @@ const quotes = [
     displayQuote();
   }
   
-  function getCurrentTime() {
-    var now = new Date();
-    var hours = now.getHours();
-    var minutes = now.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    var time = hours + ':' + minutes + ' ' + ampm;
-    var month = now.toLocaleString('default', { month: 'short' });
-    var date = now.getDate();
-    var year = now.getFullYear();
-    var formattedDate = month + ' ' + date + ', ' + year + ' at ' + time;
-    return formattedDate;
-  }
+  //function getCurrentTime() {
+    //var now = new Date();
+    //var hours = now.getHours();
+    //var minutes = now.getMinutes();
+   // var ampm = hours >= 12 ? 'PM' : 'AM';
+    //hours = hours % 12;
+   // hours = hours ? hours : 12; // the hour '0' should be '12'
+   // minutes = minutes < 10 ? '0' + minutes : minutes;
+    //var time = hours + ':' + minutes + ' ' + ampm;
+   // var month = now.toLocaleString('default', { month: 'short' });
+    //var date = now.getDate();
+   // var year = now.getFullYear();
+    //var formattedDate = month + ' ' + date + ', ' + year + ' at ' + time;
+    //return formattedDate;
+ // }
   
   document.getElementById("taskInput").addEventListener("keypress", function(event) {
     if (event.key === "Enter") {
