@@ -38,6 +38,53 @@ function displayQuote() {
   quoteContainer.innerHTML = '"' + quote.text + '" - ' + quote.author;
 }
 
+function loadTasks() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  const ul = document.getElementById("taskList");
+  ul.innerHTML = '';
+
+  tasks.forEach(task => {
+    const li = document.createElement("li");
+    li.innerHTML = '<span class="task-text">' + task.text + '</span>';
+    if (task.completed) {
+      li.classList.add("completed");
+    }
+
+    const deleteButton = document.createElement("button");
+    deleteButton.className = "delete-btn";
+    deleteButton.innerHTML = "Delete";
+    deleteButton.onclick = function() {
+      li.remove();
+      saveTasks();
+    };
+
+    const completeButton = document.createElement("button");
+    completeButton.className = "complete-btn";
+    completeButton.innerHTML = "Complete";
+    completeButton.onclick = function() {
+      li.classList.toggle("completed");
+      saveTasks();
+    };
+
+    li.appendChild(completeButton);
+    li.appendChild(deleteButton);
+    ul.appendChild(li);
+  });
+}
+
+function saveTasks() {
+  const tasks = [];
+  const lis = document.querySelectorAll("#taskList li");
+  lis.forEach(li => {
+    const task = {
+      text: li.querySelector('.task-text').innerText,
+      completed: li.classList.contains('completed')
+    };
+    tasks.push(task);
+  });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
 function addTask() {
   var input = document.getElementById("taskInput").value.trim();
   if (input === '') {
@@ -47,7 +94,6 @@ function addTask() {
 
   var ul = document.getElementById("taskList");
   var li = document.createElement("li");
-  var quote = getRandomQuote();
   li.innerHTML = '<span class="task-text">' + input + '</span>';
 
   var deleteButton = document.createElement("button");
@@ -55,6 +101,7 @@ function addTask() {
   deleteButton.innerHTML = "Delete";
   deleteButton.onclick = function() {
     li.remove();
+    saveTasks();
   };
 
   var completeButton = document.createElement("button");
@@ -62,6 +109,7 @@ function addTask() {
   completeButton.innerHTML = "Complete";
   completeButton.onclick = function() {
     li.classList.toggle("completed");
+    saveTasks();
   };
 
   li.appendChild(completeButton);
@@ -70,7 +118,7 @@ function addTask() {
 
   document.getElementById("taskInput").value = "";
 
-  displayQuote();
+  saveTasks();
 }
 
 document.getElementById("taskInput").addEventListener("keypress", function(event) {
@@ -80,4 +128,7 @@ document.getElementById("taskInput").addEventListener("keypress", function(event
 });
 
 // Display initial quote when page loads
-displayQuote();
+window.onload = function() {
+  loadTasks();
+  displayQuote();
+};
