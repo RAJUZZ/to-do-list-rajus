@@ -48,7 +48,7 @@ const quotes = [
     var ul = document.getElementById("taskList");
     var li = document.createElement("li");
     var quote = getRandomQuote();
-    li.innerHTML = '<span class="task-text">' + input + '</span>' + '<span class="timestamp">' + getCurrentTime() + '</span>';
+    li.innerHTML = '<span class="task-text">' + input + '</span>' + '<span class="timestamp">' </span>';
     
     var deleteButton = document.createElement("button");
     deleteButton.className = "delete-btn";
